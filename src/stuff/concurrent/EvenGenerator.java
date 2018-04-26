@@ -2,7 +2,7 @@ package stuff.concurrent;
 
 /**
  * EvenGenerator
- * @author lenovo
+ * @author LiuXiaoBing
  *
  */
 public class EvenGenerator extends AbstractIntGenerator {
