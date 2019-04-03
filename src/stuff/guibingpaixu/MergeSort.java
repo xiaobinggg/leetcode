@@ -3,7 +3,7 @@ package stuff.guibingpaixu;
 import java.util.Arrays;
 
 /**
- * ¹é²¢ÅÅĞòËã·¨ÊµÏÖ
+ * å½’å¹¶æ’åºç®—æ³•å®ç°
  * 
  * @author LiuXiaoBing
  *
@@ -18,28 +18,28 @@ public class MergeSort {
 	}
 
 	/**
-	 * ¹é²¢ÅÅĞò
-	 * @param numbers ´ıÅÅĞòÊı×é
-	 * @return ÅÅĞòºÃµÄÊı×é
+	 * å½’å¹¶æ’åº
+	 * @param numbers å¾…æ’åºæ•°ç»„
+	 * @return æ’åºå¥½çš„æ•°ç»„
 	 */
 	public static int[] mergeSort(int[] numbers) {
 		if (numbers.length == 1) {
 			return numbers;
 		} else {
-			//½«Êı×é·ÖÎªÁ½·İ
+			//å°†æ•°ç»„åˆ†ä¸ºä¸¤ä»½
 			int mid = numbers.length / 2;
 			int[] left_arr = Arrays.copyOfRange(numbers, 0, mid);
 			int[] right_arr = Arrays.copyOfRange(numbers, mid, numbers.length);
-			//¶ÔÁ½·İ·Ö±ğ½øĞĞ¹é²¢ÅÅĞò
+			//å¯¹ä¸¤ä»½åˆ†åˆ«è¿›è¡Œå½’å¹¶æ’åº
 			left_arr = mergeSort(left_arr);
 			right_arr = mergeSort(right_arr);
-			//ºÏ²¢ÅÅºÃĞòµÄÁ½¸öÊı×é
+			//åˆå¹¶æ’å¥½åºçš„ä¸¤ä¸ªæ•°ç»„
 			return merge(left_arr, right_arr);
 		}
 	}
 
 	/**
-	 * ºÏ²¢ÅÅºÃĞòµÄÁ½¸öÊı×é
+	 * åˆå¹¶æ’å¥½åºçš„ä¸¤ä¸ªæ•°ç»„
 	 * @param left_arr
 	 * @param right_arr
 	 * @return
