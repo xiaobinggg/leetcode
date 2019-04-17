@@ -1,4 +1,4 @@
-package stuff.guibingpaixu;
+package algorithms.sort;
 
 import java.util.Arrays;
 
