@@ -23,12 +23,12 @@ public class SimpleSort {
 		int[] numbers = new int[NSIZE];
 		// int[] numbers = { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
 		Random rand = new Random();
-//		for (int m = 0; m < NSIZE; m++) {
-//			numbers[m] = rand.nextInt(NSIZE);
-//			System.out.print(numbers[m] + ",");
-//		}
-//		System.out.println("");
-		
+		// for (int m = 0; m < NSIZE; m++) {
+		// numbers[m] = rand.nextInt(NSIZE);
+		// System.out.print(numbers[m] + ",");
+		// }
+		// System.out.println("");
+
 		Long starttime = new Date().getTime();
 		int[] bubbleNumbers = Arrays.copyOf(numbers, numbers.length);
 		bubbleSort(bubbleNumbers);
@@ -40,15 +40,15 @@ public class SimpleSort {
 		insertSort(insertNumbers);
 		endtime = new Date().getTime();
 		System.out.println("insertSort cost: " + Long.toString(endtime - starttime));
-		
+
 		starttime = new Date().getTime();
 		int[] shellNumbers = Arrays.copyOf(numbers, numbers.length);
 		shellSort(shellNumbers);
 		endtime = new Date().getTime();
 		System.out.println("shellSort cost: " + Long.toString(endtime - starttime));
-//		for (int i = 0; i < numbers.length; i++) {
-//			System.out.print(Integer.toString(numbers[i]) + ',');
-//		}
+		// for (int i = 0; i < numbers.length; i++) {
+		// System.out.print(Integer.toString(numbers[i]) + ',');
+		// }
 	}
 
 	/**
@@ -117,4 +117,18 @@ public class SimpleSort {
 			gap = gap / 2;
 		}
 	}
+
+	/**
+	 * 归并排序
+	 * 
+	 * @param numbers
+	 *            待排序数组
+	 */
+	public static void mergeSort(int[] numbers) {
+		// 递归公式：mergeCC(list) =
+		// merge(mergeCC(list[0,length/2]),mergeCC(list[length/2+1,end])), 
+		// when list.length<=1 stop
+
+	}
+
 }
