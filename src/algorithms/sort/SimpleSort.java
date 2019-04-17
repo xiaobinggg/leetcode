@@ -21,21 +21,18 @@ public class SimpleSort {
 
 	public static void main(String[] args) {
 		int[] numbers = new int[NSIZE];
-		// int[] numbers = { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
 		Random rand = new Random();
 		for (int m = 0; m < NSIZE; m++) {
 			numbers[m] = rand.nextInt(NSIZE);
 		}
-		// System.out.println("");
+		// int[] numbers = { 9, 8, 7, 6, 5, 4, 3, 1, 2, 0 };
 		Long starttime, endtime;
 
-		/*
-		 * starttime = new Date().getTime(); int[] bubbleNumbers =
-		 * Arrays.copyOf(numbers, numbers.length); bubbleSort(bubbleNumbers);
-		 * endtime = new Date().getTime();
-		 * System.out.println("bubbleSort cost: " + Long.toString(endtime -
-		 * starttime));
-		 */
+//		starttime = new Date().getTime();
+//		int[] bubbleNumbers = Arrays.copyOf(numbers, numbers.length);
+//		bubbleSort(bubbleNumbers);
+//		endtime = new Date().getTime();
+//		System.out.println("bubbleSort cost: " + Long.toString(endtime - starttime));
 
 		starttime = new Date().getTime();
 		int[] insertNumbers = Arrays.copyOf(numbers, numbers.length);
@@ -48,15 +45,12 @@ public class SimpleSort {
 		shellSort(shellNumbers);
 		endtime = new Date().getTime();
 		System.out.println("shellSort cost: " + Long.toString(endtime - starttime));
-		// for (int i = 0; i < numbers.length; i++) {
-		// System.out.print(Integer.toString(numbers[i]) + ',');
-		// }
-		for (int i = 0; i < insertNumbers.length; i++) {
-			if (insertNumbers[i] != shellNumbers[i]) {
-				System.out.println("error");
-				break;
-			}
-		}
+
+		starttime = new Date().getTime();
+		int[] mergeNumbers = Arrays.copyOf(numbers, numbers.length);
+		mergeSort(mergeNumbers);
+		endtime = new Date().getTime();
+		System.out.println("mergeSort cost: " + Long.toString(endtime - starttime));
 	}
 
 	/**
@@ -116,11 +110,63 @@ public class SimpleSort {
 				j = i - gap;
 				while (j >= 0 && array[j] > temp) {
 					array[j + gap] = array[j];
-					j =j- gap;
+					j = j - gap;
 				}
 				array[j + gap] = temp;
 			}
 			gap = gap / 2;
 		}
 	}
+
+	/**
+	 * 归并排序
+	 * 
+	 * @param numbers
+	 *            待排序数组
+	 */
+	public static void mergeSort(int[] numbers) {
+		// 递归公式：mergeCC(list) =
+		// merge(mergeCC(list[0,length/2]),mergeCC(list[length/2+1,end])),
+		// when list.length<=1 stop
+		numbers = mergeCC(numbers);
+
+	}
+
+	public static int[] mergeCC(int[] numbers) {
+		if (numbers.length <= 1) {
+			return numbers;
+		}
+		int[] leftArr = new int[numbers.length / 2];
+		int[] rightArr = new int[numbers.length - numbers.length / 2];
+		System.arraycopy(numbers, 0, leftArr, 0, numbers.length / 2);
+		System.arraycopy(numbers, numbers.length / 2, rightArr, 0, numbers.length - numbers.length / 2);
+		return merge(mergeCC(leftArr), mergeCC(rightArr));
+	}
+
+	public static int[] merge(int[] leftArr, int[] rightArr) {
+		int leftSize = leftArr.length;
+		int rightSize = rightArr.length;
+		int[] result = new int[leftSize + rightSize];
+		int i = 0;
+		int j = 0;
+		int idx = 0;
+		while (i < leftSize && j < rightSize) {
+			if (leftArr[i] <= rightArr[j]) {
+				result[idx++] = leftArr[i++];
+			} else {
+				result[idx++] = rightArr[j++];
+			}
+		}
+		if (i == leftSize) {
+			for (int l = j; l < rightArr.length; l++) {
+				result[idx++] = rightArr[l];
+			}
+		} else {
+			for (int l = i; l < leftArr.length; l++) {
+				result[idx++] = leftArr[l];
+			}
+		}
+		return result;
+	}
+
 }
