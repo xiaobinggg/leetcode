@@ -17,38 +17,46 @@ import java.util.Date;
 import java.util.Random;
 
 public class SimpleSort {
-	public static int NSIZE = 1000000;
+	public static int NSIZE = 100000;
 
 	public static void main(String[] args) {
 		int[] numbers = new int[NSIZE];
 		// int[] numbers = { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
 		Random rand = new Random();
-//		for (int m = 0; m < NSIZE; m++) {
-//			numbers[m] = rand.nextInt(NSIZE);
-//			System.out.print(numbers[m] + ",");
-//		}
-//		System.out.println("");
-		
-		Long starttime = new Date().getTime();
-		int[] bubbleNumbers = Arrays.copyOf(numbers, numbers.length);
-		bubbleSort(bubbleNumbers);
-		Long endtime = new Date().getTime();
-		System.out.println("bubbleSort cost: " + Long.toString(endtime - starttime));
+		for (int m = 0; m < NSIZE; m++) {
+			numbers[m] = rand.nextInt(NSIZE);
+		}
+		// System.out.println("");
+		Long starttime, endtime;
+
+		/*
+		 * starttime = new Date().getTime(); int[] bubbleNumbers =
+		 * Arrays.copyOf(numbers, numbers.length); bubbleSort(bubbleNumbers);
+		 * endtime = new Date().getTime();
+		 * System.out.println("bubbleSort cost: " + Long.toString(endtime -
+		 * starttime));
+		 */
 
 		starttime = new Date().getTime();
 		int[] insertNumbers = Arrays.copyOf(numbers, numbers.length);
 		insertSort(insertNumbers);
 		endtime = new Date().getTime();
 		System.out.println("insertSort cost: " + Long.toString(endtime - starttime));
-		
+
 		starttime = new Date().getTime();
 		int[] shellNumbers = Arrays.copyOf(numbers, numbers.length);
 		shellSort(shellNumbers);
 		endtime = new Date().getTime();
 		System.out.println("shellSort cost: " + Long.toString(endtime - starttime));
-//		for (int i = 0; i < numbers.length; i++) {
-//			System.out.print(Integer.toString(numbers[i]) + ',');
-//		}
+		// for (int i = 0; i < numbers.length; i++) {
+		// System.out.print(Integer.toString(numbers[i]) + ',');
+		// }
+		for (int i = 0; i < insertNumbers.length; i++) {
+			if (insertNumbers[i] != shellNumbers[i]) {
+				System.out.println("error");
+				break;
+			}
+		}
 	}
 
 	/**
@@ -94,25 +102,23 @@ public class SimpleSort {
 	/**
 	 * 希尔排序
 	 * 
-	 * @param numbers
+	 * @param array
 	 *            待排序数组
 	 */
-	public static void shellSort(int[] numbers) {
-		int gap = numbers.length / 2; // 希尔增量
-		int swap;
-		while (gap > 1) {
-			for (int i = 0; i < numbers.length; i++) {
-				// 1.找出该元素所在的分组: i%gap+0*gap ~~ i%gap+(i-1)*gap, 共有i/gap+1个元素
-				// 2.插入排序
-				swap = numbers[i];
-				int j = i / gap;
-				while (j >= 0 && numbers[i % gap + j * gap] > swap) {
-					numbers[i % gap + (j + 1) * gap] = numbers[i % gap + j * gap];
-					j -= 1;
+	public static void shellSort(int[] array) {
+		int gap = array.length / 2; // 希尔增量
+		int i;
+		int j;
+		int temp;
+		while (gap >= 1) {
+			for (i = gap; i < array.length; i++) {
+				temp = array[i];
+				j = i - gap;
+				while (j >= 0 && array[j] > temp) {
+					array[j + gap] = array[j];
+					j =j- gap;
 				}
-				if (j != i / gap) {
-					numbers[i % gap + (j + 1) * gap] = swap;
-				}
+				array[j + gap] = temp;
 			}
 			gap = gap / 2;
 		}
