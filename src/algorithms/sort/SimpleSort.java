@@ -17,7 +17,7 @@ import java.util.Date;
 import java.util.Random;
 
 public class SimpleSort {
-	public static int NSIZE = 100000;
+	public static int NSIZE = 1000000;
 
 	public static void main(String[] args) {
 		int[] numbers = new int[NSIZE];
@@ -25,7 +25,7 @@ public class SimpleSort {
 		for (int m = 0; m < NSIZE; m++) {
 			numbers[m] = rand.nextInt(NSIZE);
 		}
-		// int[] numbers = { 9, 8, 7, 6, 5, 4, 3, 1, 2, 0 };
+//		 int[] numbers = { 9, 8, 7, 6, 5, 4, 3, 1, 2, 0 };
 		Long starttime, endtime;
 
 		// starttime = new Date().getTime();
@@ -35,11 +35,11 @@ public class SimpleSort {
 		// System.out.println("bubbleSort cost: " + Long.toString(endtime -
 		// starttime));
 
-		starttime = new Date().getTime();
-		int[] insertNumbers = Arrays.copyOf(numbers, numbers.length);
-		insertSort(insertNumbers);
-		endtime = new Date().getTime();
-		System.out.println("insertSort cost: " + Long.toString(endtime - starttime));
+//		starttime = new Date().getTime();
+//		int[] insertNumbers = Arrays.copyOf(numbers, numbers.length);
+//		insertSort(insertNumbers);
+//		endtime = new Date().getTime();
+//		System.out.println("insertSort cost: " + Long.toString(endtime - starttime));
 
 		starttime = new Date().getTime();
 		int[] shellNumbers = Arrays.copyOf(numbers, numbers.length);
@@ -47,11 +47,17 @@ public class SimpleSort {
 		endtime = new Date().getTime();
 		System.out.println("shellSort cost: " + Long.toString(endtime - starttime));
 
+//		starttime = new Date().getTime();
+//		int[] mergeNumbers = Arrays.copyOf(numbers, numbers.length);
+//		MergeSort.mergeSort(mergeNumbers);
+//		endtime = new Date().getTime();
+//		System.out.println("mergeSort cost: " + Long.toString(endtime - starttime));
+
 		starttime = new Date().getTime();
-		int[] mergeNumbers = Arrays.copyOf(numbers, numbers.length);
-		MergeSort.mergeSort(mergeNumbers);
+		int[] quickNumbers = Arrays.copyOf(numbers, numbers.length);
+		QuickSort.quickSort(quickNumbers);
 		endtime = new Date().getTime();
-		System.out.println("mergeSort cost: " + Long.toString(endtime - starttime));
+		System.out.println("quickSort cost: " + Long.toString(endtime - starttime));
 	}
 
 	/**

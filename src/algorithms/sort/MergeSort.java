@@ -28,46 +28,41 @@ public class MergeSort {
 		} else {
 			//将数组分为两份
 			int mid = numbers.length / 2;
-			int[] left_arr = Arrays.copyOfRange(numbers, 0, mid);
-			int[] right_arr = Arrays.copyOfRange(numbers, mid, numbers.length);
+			int[] leftArr = Arrays.copyOfRange(numbers, 0, mid);
+			int[] rightArr = Arrays.copyOfRange(numbers, mid, numbers.length);
 			//对两份分别进行归并排序
-			left_arr = mergeSort(left_arr);
-			right_arr = mergeSort(right_arr);
+			leftArr = mergeSort(leftArr);
+			rightArr = mergeSort(rightArr);
 			//合并排好序的两个数组
-			return merge(left_arr, right_arr);
+			return merge(leftArr, rightArr);
 		}
 	}
 
 	/**
 	 * 合并排好序的两个数组
-	 * @param left_arr
-	 * @param right_arr
+	 * @param leftArr
+	 * @param rightArr
 	 * @return
 	 */
-	public static int[] merge(int[] left_arr, int[] right_arr) {
-		int[] result = new int[left_arr.length + right_arr.length];
-		int left_idx = 0;
-		int right_idx = 0;
+	public static int[] merge(int[] leftArr, int[] rightArr) {
+		int[] result = new int[leftArr.length + rightArr.length];
+		int leftIdx = 0;
+		int rightIdx = 0;
 		int idx = 0;
-		while (left_idx < left_arr.length && right_idx < right_arr.length) {
-			if (left_arr[left_idx] > right_arr[right_idx]) {
-				result[idx] = right_arr[right_idx];
-				right_idx += 1;
+		while (leftIdx < leftArr.length && rightIdx < rightArr.length) {
+			if (leftArr[leftIdx] > rightArr[rightIdx]) {
+				result[idx++] = rightArr[rightIdx++];
 			} else {
-				result[idx] = left_arr[left_idx];
-				left_idx += 1;
+				result[idx++] = leftArr[leftIdx++];
 			}
-			idx += 1;
 		}
-		if (left_idx < left_arr.length) {
-			for (int i = left_idx; i < left_arr.length; i++) {
-				result[idx] = left_arr[i];
-				idx += 1;
+		if (leftIdx < leftArr.length) {
+			for (int i = leftIdx; i < leftArr.length; i++) {
+				result[idx++] = leftArr[i];
 			}
 		} else {
-			for (int i = right_idx; i < right_arr.length; i++) {
-				result[idx] = right_arr[i];
-				idx += 1;
+			for (int i = rightIdx; i < rightArr.length; i++) {
+				result[idx++] = rightArr[i];
 			}
 		}
 		return result;
