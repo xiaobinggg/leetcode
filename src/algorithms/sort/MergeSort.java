@@ -3,7 +3,7 @@ package algorithms.sort;
 import java.util.Arrays;
 
 /**
- * 归并排序算法实现
+ * 归并排序算法实现 O(nlogn)
  * 
  * @author LiuXiaoBing
  *
