@@ -1,18 +1,19 @@
 package algorithms.base;
 
+
 public class BingLinkedList<E> {
-	private Node<E> root = null;
-	private Node<E> last = null;
+	private LinkNode<E> root = null;
+	private LinkNode<E> last = null;
 	private int size = 0;
 
 	public BingLinkedList() {
-		root = new Node(null, null, null);
-		last = new Node(null, root, null);
+		root = new LinkNode(null, null, null);
+		last = new LinkNode(null, root, null);
 		root.next = last;
 	}
 
 	public void add(E e) {
-		Node<E> node = new Node<E>(e, last.prev, last);
+		LinkNode<E> node = new LinkNode<E>(e, last.prev, last);
 		last.prev.next = node;
 		last.prev = node;
 		size += 1;
@@ -22,36 +23,52 @@ public class BingLinkedList<E> {
 			this.add(e);
 		}
 	}
+	public void addBefore(int index, E element) {
+		LinkNode prenode = node(index);
+		LinkNode<E> node = new LinkNode<E>(element, prenode.prev, prenode);
+		prenode.prev.next = node;
+		prenode.prev = node;
+		size += 1;
+	}
+	public void addBeforeNode(LinkNode node, E element){
+
+	}
+	
+	private LinkNode<E> node(int idx) {
+		if (idx < (this.size >> 1)) {
+			LinkNode<E> x = root.next;
+			for(int i=0;i<idx;i++) {
+				x = x.next;
+			}
+			return x;
+		} else {
+			LinkNode<E> x = last.prev;
+			for(int i=this.size-1;i>idx;i--) {
+				x = x.prev;
+			}
+		}
+		return null;
+	}
 
 	public void remove(int idx) {
-		Node<E> node = this.getNode(idx);
+		LinkNode<E> node = this.node(idx);
 		if (node != null) {
 			node.prev.next = node.next;
 			size -= 1;
 		}
 	}
-
-	private Node<E> getNode(int idx) {
-		if (idx < 0 || idx >= size) {
-			return null;
-		}
-		int loop = idx;
-		Node<E> tempNode = root.next;
-		while (loop > 0) {
-			tempNode = tempNode.next;
-			loop -= 1;
-		}
-		return tempNode;
+	private boolean isElementIndex(int index) {
+		return index >= 0 && index < size;
 	}
 
+
 	public E get(int idx) {
-		Node<E> node = this.getNode(idx);
+		LinkNode<E> node = this.node(idx);
 		if (node != null) {
 			return node.e;
 		} else {
 			return null;
 		}
-
 	}
 
 	public int size() {
@@ -59,7 +76,7 @@ public class BingLinkedList<E> {
 	}
 	
 	public String toString() {
-		Node loopNode = root.next;
+		LinkNode loopNode = root.next;
 		StringBuffer buff = new StringBuffer("");
 		while(loopNode != last) {
 			buff.append(loopNode.e.toString()).append("--> ");
@@ -68,15 +85,4 @@ public class BingLinkedList<E> {
 		return buff.toString();
 	}
 
-	private static class Node<E> {
-		E e;
-		Node<E> prev;
-		Node<E> next;
-
-		Node(E e, Node<E> prev, Node<E> next) {
-			this.e = e;
-			this.prev = prev;
-			this.next = next;
-		}
-	}
 }
