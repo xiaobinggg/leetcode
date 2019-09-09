@@ -1,15 +1,22 @@
 package algorithms.skiplist;
 
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Random;
+import java.util.Set;
 
 public class Test {
     public static void main(String[] args) {
-        BingSkipList skipList = new BingSkipList();
+        BingSkipList<Integer> skipList = new BingSkipList<Integer>();
         Random random = new Random();
-        for(int i=0;i<10000;i++){
-            skipList.zadd(random.nextFloat());
+        Set<Integer> numbers = new HashSet<Integer>();
+        for(int i=0;i<50;i++){
+        	numbers.add(random.nextInt(100));
         }
-        int pos = skipList.zrank("random-6098");
-        System.out.println(pos);
+        Iterator<Integer> iter = numbers.iterator();
+        while(iter.hasNext()) {
+        	skipList.insert(iter.next());
+        }
+        skipList.printAll();
     }
 }

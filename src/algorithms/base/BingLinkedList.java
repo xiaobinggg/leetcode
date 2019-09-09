@@ -2,9 +2,9 @@ package algorithms.base;
 
 
 public class BingLinkedList<E> {
-	private LinkNode<E> root = null;
-	private LinkNode<E> last = null;
-	private int size = 0;
+	public LinkNode<E> root = null;
+	public LinkNode<E> last = null;
+	public int size = 0;
 
 	public BingLinkedList() {
 		root = new LinkNode(null, null, null);
@@ -12,29 +12,31 @@ public class BingLinkedList<E> {
 		root.next = last;
 	}
 
-	public void add(E e) {
+	public LinkNode<E> add(E e) {
 		LinkNode<E> node = new LinkNode<E>(e, last.prev, last);
 		last.prev.next = node;
 		last.prev = node;
 		size += 1;
+		return node;
 	}
 	public void add(E[] eArr) {
 		for(E e: eArr) {
 			this.add(e);
 		}
 	}
-	public void addBefore(int index, E element) {
+	public LinkNode addBefore(int index, E element) {
 		LinkNode prenode = node(index);
+		return this.addBeforeNode(prenode, element);
+	}
+	public LinkNode addBeforeNode(LinkNode prenode, E element){
 		LinkNode<E> node = new LinkNode<E>(element, prenode.prev, prenode);
 		prenode.prev.next = node;
 		prenode.prev = node;
 		size += 1;
-	}
-	public void addBeforeNode(LinkNode node, E element){
-
+		return node;
 	}
 	
-	private LinkNode<E> node(int idx) {
+	public LinkNode<E> node(int idx) {
 		if (idx < (this.size >> 1)) {
 			LinkNode<E> x = root.next;
 			for(int i=0;i<idx;i++) {

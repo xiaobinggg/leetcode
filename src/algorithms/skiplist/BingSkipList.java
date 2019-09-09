@@ -1,87 +1,103 @@
 package algorithms.skiplist;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-
-import algorithms.base.BingLinkedList;
-import algorithms.base.LinkNode;
-import sun.awt.image.ImageWatched;
+import java.util.Random;
 
 /**
  * @Description:
  * @author:LiuXiaoBing
  * @date: 2019年8月29日 下午4:51:12
  */
-public class BingSkipList<E> implements ISkipList<E>{
-    private Object o;
-    private LinkedList justforJump;
-	private BingLinkedList<E> linkedList = new BingLinkedList<E>();
-	private static final int MAX_LEVELS = 5;
-	private static final Double RANDOMVAL = 0.5;
-	private BingLinkedList<SkipNode>[] skipLists = new BingLinkedList[MAX_LEVELS];
+public class BingSkipList<E> {
+	private static final int MAX_LEVEL = 30;
+	private int currentMaxLevel = 1;
 
+	private Random r = new Random();
+	public SkipNode<E> head = new SkipNode<E>(null, 0, MAX_LEVEL);
 
-	@Override
-	public boolean zadd(E o) {
-		// 维护底层链表结构
-		LinkNode lnode = this.findFirstGreater(o);
-		if(lnode.next == null) {
-			this.linkedList.add(o);
-		}
-		// 完善跳表各层次信息
-		return false;
-	}
-
-	@Override
-	public boolean zrem(E o) {
-		return false;
-	}
-
-	@Override
-	public int zrank(E o) {
-		return 0;
-	}
-
-	@Override
-	public List zrangebyscore(E min, E max) {
-		return null;
-	}
-
-	/**
-	 * 查找第一个大于指定元素的节点
-	 * @param o
-	 * @return
-	 */
-	private LinkNode findFirstGreater(E o) {
-		// assert all skipList's last element 's hashcode is INTEGER.MAX_VALUE
-		int hashcode = o.hashCode();
-		BingLinkedList<SkipNode> skipList = skipLists[MAX_LEVELS-1];
-	    SkipNode skipNode = skipList.get(0);
-	    int level = 0 ;
-	    while(level != MAX_LEVELS) {
-	    	if (skipNode.hashcode == hashcode) {
-	    	    return skipNode.linkNode;
-			} else if(skipNode.hashcode < hashcode) {
-	    		skipNode = skipNode.next;
-			} else {
-	    		skipNode = skipNode.prev.down;
-	    		level += 1;
+	public SkipNode<E> find(E e) {
+		SkipNode<E> p = head;
+		for (int i = currentMaxLevel - 1; i >= 0; i -= 1) {
+			while (p.forwards[i] != null && p.forwards[i].hashcode < e.hashCode()) {
+				p = p.forwards[i];
 			}
 		}
-		LinkNode linkNode = skipNode.linkNode;
-	    while(linkNode.next != null && linkNode.e.hashCode() != hashcode) {
-	    	linkNode = linkNode.next;
+		if (p.forwards[0] != null && p.forwards[0].hashcode == e.hashCode()) {
+			return p.forwards[0];
+		} else {
+			return null;
 		}
-		return linkNode;
 	}
 
-	private class SkipNode{
-		private LinkNode linkNode;
-		private int hashcode;
-		private SkipNode next;
-		private SkipNode prev;
-		private SkipNode down;
+	public void insert(E e) {
+		int nodeLevel = this.getRandomLevel();
+		SkipNode<E> node = new SkipNode<E>(e, nodeLevel, MAX_LEVEL);
+		this.currentMaxLevel = this.currentMaxLevel > nodeLevel ? this.currentMaxLevel : nodeLevel;
+		SkipNode<E> p = head;
+		for (int i = nodeLevel - 1; i >= 0; i -= 1) {
+			while (p.forwards[i] != null && p.forwards[i].hashcode < e.hashCode()) {
+				p = p.forwards[i];
+			}
+			node.forwards[i] = p.forwards[i];
+			p.forwards[i] = node;
+		}
 	}
+
+	public void delete(E e) {
+		SkipNode<E>[] updates = new SkipNode[currentMaxLevel];
+		SkipNode<E> p = head;
+		for (int i = currentMaxLevel - 1; i >= 0; i -= 1) {
+			while (p.forwards[i] != null && p.forwards[i].hashcode < e.hashCode()) {
+				p = p.forwards[i];
+			}
+			updates[i] = p;
+		}
+		if (p.forwards[0] != null && p.forwards[0].hashcode == e.hashCode()) {
+			for (int i = currentMaxLevel - 1; i >= 0; i -= 1) {
+				if (updates[i].forwards[i] != null && updates[i].forwards[i].hashcode == e.hashCode()) {
+					updates[i].forwards[i] = updates[i].forwards[i].forwards[i];
+				}
+			}
+		}
+		while (currentMaxLevel > 1 && head.forwards[currentMaxLevel] != null) {
+			currentMaxLevel -= 1;
+		}
+	}
+
+	private int getRandomLevel() {
+		int level = 1;
+		for (int i = 0; i < MAX_LEVEL; i++) {
+			if (r.nextInt() % 2 == 0) {
+				level += 1;
+			}
+		}
+		return level;
+	}
+
+	public void printAll() {
+		SkipNode<E> p = head;
+		for (int i = currentMaxLevel - 1; i >= 0; i -= 1) {
+			p = head;
+			while (p != null) {
+				String str = p.data == null ? "null" : p.data.toString();
+				System.out.print(str.length() > 1 ? str : "0" + str);
+				SkipNode<E> temp = p;
+				int count = 0;
+				while (temp != p.forwards[i]) {
+					temp = temp.forwards[0];
+					count += 1;
+				}
+				p = p.forwards[i];
+				while (count > 0) {
+					if(count>1) {
+						System.out.print("-----");
+					}else {
+						System.out.print("-->");
+					}
+					count--;
+				}
+			}
+			System.out.println("");
+		}
+	}
+
 }

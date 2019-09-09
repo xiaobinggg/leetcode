@@ -5,7 +5,7 @@ public class LinkNode<E> {
     public LinkNode<E> prev;
     public LinkNode<E> next;
 
-    LinkNode(E e, LinkNode<E> prev, LinkNode<E> next) {
+    public LinkNode(E e, LinkNode<E> prev, LinkNode<E> next) {
         this.e = e;
         this.prev = prev;
         this.next = next;
