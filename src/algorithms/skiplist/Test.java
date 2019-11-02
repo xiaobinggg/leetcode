@@ -10,7 +10,7 @@ public class Test {
         BingSkipList<Integer> skipList = new BingSkipList<Integer>();
         Random random = new Random();
         Set<Integer> numbers = new HashSet<Integer>();
-        for(int i=0;i<50;i++){
+        for (int i = 0; i < 20; i++) {
         	numbers.add(random.nextInt(100));
         }
         Iterator<Integer> iter = numbers.iterator();

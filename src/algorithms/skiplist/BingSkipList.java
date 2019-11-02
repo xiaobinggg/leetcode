@@ -8,12 +8,20 @@ import java.util.Random;
  * @date: 2019年8月29日 下午4:51:12
  */
 public class BingSkipList<E> {
-	private static final int MAX_LEVEL = 30;
+	private static final int MAX_LEVEL = 10;
+	/**
+	 * 跳表最大层级
+	 */
 	private int currentMaxLevel = 1;
 
 	private Random r = new Random();
 	public SkipNode<E> head = new SkipNode<E>(null, 0, MAX_LEVEL);
 
+	/**
+	 * 查找元素
+	 * @param e
+	 * @return
+	 */
 	public SkipNode<E> find(E e) {
 		SkipNode<E> p = head;
 		for (int i = currentMaxLevel - 1; i >= 0; i -= 1) {
@@ -63,6 +71,10 @@ public class BingSkipList<E> {
 		}
 	}
 
+	/**
+	 * 获取随机层级，避免跳表退化
+	 * @return
+	 */
 	private int getRandomLevel() {
 		int level = 1;
 		for (int i = 0; i < MAX_LEVEL; i++) {

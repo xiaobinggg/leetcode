@@ -33,9 +33,9 @@ public class QuickSort {
 	 * 1、分区点元素pivot取数组最后一个值，设置一个下标变量pos存储分区位置
 	 * 遍历数组，如果元素小于分区点pivot，将其挪到pos左边(具体操作是将a[pos]与a[i]元素互换，然后pos+1)
 	 * 重点是对pos处理方式的理解。pos位置默认是0，它每往前走一步，代表有一个<pivot的元素被置换过来了。
-	 * @param numbers
-	 * @param start
-	 * @param end
+	 * @param numbers 带分区数组
+	 * @param start 开始下标
+	 * @param end 结束下标
 	 * @return
 	 */
 	public static int partion(int[] numbers, int start, int end) {
