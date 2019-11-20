@@ -1,11 +1,11 @@
 package leetcode.s33;
 
-public class S33 {
+public class Solution {
 
 	public static void main(String[] args) {
 		int[] nums = new int[] { 4, 5, 6, 7, 0, 1, 2 };
 		nums = new int[] { 8,9,2,3,4 };
-		S33 s33 = new S33();
+		Solution s33 = new Solution();
 		// System.out.println(s33.search(nums, 0));
 		System.out.println(s33.search(nums, 9));
 	}
