@@ -1,4 +1,4 @@
-package algorithms.base;
+package algorithms.base.linkedlist;
 
 public class LinkNode<E> {
     public E e;
@@ -9,5 +9,9 @@ public class LinkNode<E> {
         this.e = e;
         this.prev = prev;
         this.next = next;
+    }
+
+    public String toString() {
+        return this.e.toString();
     }
 }

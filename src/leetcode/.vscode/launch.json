@@ -1,0 +1,16 @@
+{
+  "configurations": [
+    {
+      "type": "java",
+      "name": "CodeLens (Launch) - Solution",
+      "request": "launch",
+      "mainClass": "leetcode.s33.Solution"
+    },
+    {
+      "type": "java",
+      "name": "CodeLens (Launch) - Solution",
+      "request": "launch",
+      "mainClass": "leetcode.s01.Solution"
+    }
+  ]
+}
