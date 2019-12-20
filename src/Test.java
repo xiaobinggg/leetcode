@@ -1,22 +1,30 @@
+import java.util.Stack;
 
 public class Test {
 
-	private static volatile MultValCache cache;
-
-	//@Immutable
-	class MultValCache {
-		private final String lastRequest;
-		private final String lastResult;
-		public MultValCache(String req, String result) {
-			this.lastRequest = req;
-			this.lastResult = result;
+	public static void main(String[] args) {
+		Test t = new Test();
+		System.out.println(t.isValid("()"));
+	}
+	public boolean isValid(String s) {
+		if (null == s || s.length() ==0) {
+			return true;
 		}
-		public String getResult(String req) {
-			if (lastRequest == null || !lastRequest.equalsIgnoreCase(req)) {
-				return null;
-			}else {
-				return this.lastResult;
+		Stack<Character> stack = new Stack<Character>();
+		for(char c: s.toCharArray()){
+			if ('(' == c || '{' == c || '[' == c) {
+				stack.push(c);
+			} else {
+				char cinStack = stack.pop();
+				if (cinStack != c) {
+					return false;
+				}
 			}
+		}
+		if (stack.isEmpty()) {
+			return true;
+		} else {
+			return false;
 		}
 	}
 }
