@@ -1,4 +1,4 @@
-package designpattern.proxy.dynaimc.cglib;
+/*package designpattern.proxy.dynaimc.cglib;
 
 import net.sf.cglib.proxy.Enhancer;
 
@@ -15,4 +15,4 @@ public class Client {
 	     
 	}
 
-}
+}*/

@@ -5,6 +5,11 @@ import java.util.Map;
 public class LinkedHashMapSample {
     public static void main(String[] args) {
         LinkedHashMap<String, String> accessOrderedMap = new LinkedHashMap<String, String>(16, 0.75F, true){
+            /**
+             *
+             */
+            private static final long serialVersionUID = 5419363080898017031L;
+
             @Override
             protected boolean removeEldestEntry(Map.Entry<String, String> eldest) { // 实现自定义删除策略，否则行为就和普遍 Map 没有区别
                 return size() > 3;

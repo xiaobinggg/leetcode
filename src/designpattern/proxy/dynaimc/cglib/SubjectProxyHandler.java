@@ -1,4 +1,4 @@
-package designpattern.proxy.dynaimc.cglib;
+/*package designpattern.proxy.dynaimc.cglib;
 
 import java.lang.reflect.Method;
 
@@ -15,3 +15,4 @@ public class SubjectProxyHandler implements MethodInterceptor {
 	        return object;
 	}
 }
+*/
